@@ -77,6 +77,7 @@ EnrollmentSystem::courseType EnrollmentSystem::readCourse()
     // If no match, print an error and return ENGLISH as default.
     string input;
 
+    cout << endl;
     cout << "Enter course (english/math/history/cpp/biology/art): ";
     cin >> input;
 
@@ -135,7 +136,7 @@ void EnrollmentSystem::printStudentInfo(string fullName, string email, courseTyp
 int main()
 {
     // --- Welcome banner (use string concatenation) ---
-    string line = "=====================================";
+    string line = "================================================";
     
     // TODO: Build and print a welcome banner using + operator.
     cout << line + "\nWelcome to the Student Course Enrollment System\n" + line << endl;
@@ -154,6 +155,7 @@ int main()
     // TODO 3: Use substr to extract and print the first name only (hint: use find to locate space).
     // TODO 4: Use at(0) or [0] to print the first initial.
     // TODO 5: Use find(' ') to find and print the space position.
+    cout << endl;
     fullName = firstName + " " + lastName;
 
     cout << "Full name: " << fullName << endl;
@@ -161,10 +163,13 @@ int main()
     cout << "Number of characters in full name: " << fullName.length() << endl;
 
     int spacePosition = fullName.find(" ");
+    cout << "Space position: " << spacePosition << endl;  //added print for space position
+
     cout << "First name only using substr: " << fullName.substr(0, spacePosition) << endl;
 
     cout << "First initial using at(): " << fullName.at(0) << endl;
  
+    cout << endl;
     cout << "Enter email username (e.g. jsmith): ";
     cin >> emailUser;
  
@@ -172,6 +177,7 @@ int main()
     // TODO 7: Use insert to append "@sanjac.edu" at the end. Store result in email.
     // TODO 8: Use replace to fix a demo typo (e.g., replace "sanjac" with "SanJac").
     // TODO 9: Use erase to strip trailing punctuation if present.
+    cout << endl;
     if (emailUser.empty())
     {
         cout << "Email username is empty." << endl;
@@ -200,6 +206,7 @@ int main()
 
     int result = lastName.compare(lastName2);
 
+    cout << endl;
     if (result < 0)
     {
         cout << lastName << " comes before " << lastName2 << " alphabetically." << endl;
@@ -227,10 +234,19 @@ int main()
     // Print the next course name.
     currentCourse = MATH;
 
-    cout << "After MATH, the next course is: ";
-    currentCourse = static_cast<courseType>(static_cast<int>(currentCourse) + 1);  //current course is progressed
+    if (currentCourse != ART)  //added the (currentCourse != ART) guard
+{
+    currentCourse = static_cast<courseType>(static_cast<int>(currentCourse) + 1);    //current course is progressed
+
+    cout << "Course after advancing by one: ";
     printCourse(currentCourse);
     cout << endl;
+}
+
+else
+{
+    cout << "Current course is already Art Appreciation. Cannot advance." << endl;
+}
  
     // TODO: for loop print all courses using printCourse.
     cout << endl << "All available courses:" << endl;
@@ -275,8 +291,12 @@ int main()
  
     // --- Summary ---
     // TODO: Call printStudentInfo with the correct arguments.
-    EnrollmentSystem::currentCourse = readCourse(); // PART 4 DEMO: Access one namespace member with full prefix
     printStudentInfo(fullName, email, selectedCourse, sid, hours);
+
+    // PART 4 DEMO: Access one namespace member with full prefix
+    cout << "Namespace demo course: ";
+    EnrollmentSystem::printCourse(EnrollmentSystem::ART);
+    cout << endl;
  
     return 0;
 }
